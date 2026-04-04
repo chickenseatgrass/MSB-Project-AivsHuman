@@ -1,25 +1,21 @@
-// ====== IMAGE DATA (EDIT THIS) ======
 let data = [
-  {src: "images/img1.jpg", label: "AI"},
-  {src: "images/img2.jpg", label: "Human"},
-  {src: "images/img3.jpg", label: "AI"},
+  {src: "images/img1.png", label: "AI"},
+  {src: "images/img2.png", label: "AI"},
+  {src: "images/img3.png", label: "AI"},
   // ADD ALL 50
 ];
 
-// Shuffle images
 data.sort(() => Math.random() - 0.5);
 
 let images = data.map(d => d.src);
 let answers = data.map(d => d.label);
 
-// ====== VARIABLES ======
 let current = 0;
 let score = 0;
 let timer;
 let timeLeft = 20;
 let startTime;
 
-// ====== NAVIGATION ======
 function startInstructions() {
   document.getElementById('home').classList.add('hidden');
   document.getElementById('instructions').classList.remove('hidden');
@@ -32,12 +28,14 @@ function startTest() {
   nextImage();
 }
 
-// ====== TEST FLOW ======
 function nextImage() {
   if (current >= images.length) {
     endTest();
     return;
   }
+
+  // DISABLE buttons at the start of countdown
+  setButtonsDisabled(true); 
 
   let count = 3;
   let countdownEl = document.getElementById('countdown');
@@ -56,10 +54,14 @@ function nextImage() {
 }
 
 function showImage() {
-  document.getElementById('image').src = images[current];
-  timeLeft = 20;
+  setButtonsDisabled(false); 
+  
+  timeLeft = 20; 
 
+  document.getElementById('image').src = images[current];
   document.getElementById('timer').innerText = "Time: " + timeLeft;
+
+  if (timer) clearInterval(timer);
 
   timer = setInterval(() => {
     timeLeft--;
@@ -126,4 +128,9 @@ function sendData(accuracy, totalTime) {
       time: totalTime
     })
   });
+}
+
+function setButtonsDisabled(status) {
+  const buttons = document.querySelectorAll('button');
+  buttons.forEach(btn => btn.disabled = status);
 }

@@ -1,52 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>AI vs Human Test</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Home</title>
 </head>
 <body>
 
-<div class="container">
+<h1>AI vs Human Test</h1>
 
-  <!-- HOME -->
-  <div id="home">
-    <h1>AI vs Human Image Test</h1>
-    <input id="name" placeholder="Enter your name"><br><br>
-    <input id="age" placeholder="Enter your age"><br><br>
-    <button onclick="startInstructions()">Start</button>
-  </div>
+<input id="name" placeholder="Enter name"><br><br>
+<input id="age" placeholder="Enter age"><br><br>
 
-  <!-- INSTRUCTIONS -->
-  <div id="instructions" class="hidden">
-    <h2>Instructions</h2>
-    <p>You will see 50 images.</p>
-    <p>Decide if each is AI or Human.</p>
-    <p>You have 20 seconds per image.</p>
-    <button onclick="startTest()">Begin</button>
-  </div>
+<button onclick="goNext()">Start</button>
 
-  <!-- TEST -->
-  <div id="test" class="hidden">
-    <div id="progressBar"><div id="progress"></div></div>
-    <h2 id="countdown"></h2>
-    <img id="image" src="">
-    <div>
-      <button onclick="answer('AI')">AI</button>
-      <button onclick="answer('Human')">Human</button>
-    </div>
-    <p id="timer"></p>
-  </div>
+<script>
+function goNext() {
+  localStorage.setItem("name", document.getElementById("name").value);
+  localStorage.setItem("age", document.getElementById("age").value);
+  window.location.href = "instruct.html";
+}
+</script>
 
-  <!-- END -->
-  <div id="end" class="hidden">
-    <h2>Done!</h2>
-    <button onclick="showResults()">See Results</button>
-    <p id="results"></p>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
 </body>
 </html>
