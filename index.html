@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI vs Human Test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HOME -->
+  <div id="home">
+    <h1>AI vs Human Image Test</h1>
+    <input id="name" placeholder="Enter your name"><br><br>
+    <input id="age" placeholder="Enter your age"><br><br>
+    <button onclick="startInstructions()">Start</button>
+  </div>
+
+  <!-- INSTRUCTIONS -->
+  <div id="instructions" class="hidden">
+    <h2>Instructions</h2>
+    <p>You will see 50 images.</p>
+    <p>Decide if each is AI or Human.</p>
+    <p>You have 20 seconds per image.</p>
+    <button onclick="startTest()">Begin</button>
+  </div>
+
+  <!-- TEST -->
+  <div id="test" class="hidden">
+    <div id="progressBar"><div id="progress"></div></div>
+    <h2 id="countdown"></h2>
+    <img id="image" src="">
+    <div>
+      <button onclick="answer('AI')">AI</button>
+      <button onclick="answer('Human')">Human</button>
+    </div>
+    <p id="timer"></p>
+  </div>
+
+  <!-- END -->
+  <div id="end" class="hidden">
+    <h2>Done!</h2>
+    <button onclick="showResults()">See Results</button>
+    <p id="results"></p>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
