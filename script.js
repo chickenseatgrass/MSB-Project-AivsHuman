@@ -122,7 +122,6 @@ function showImage() {
   }, 1000);
 }
 
-// ====== ANSWER ======
 function answer(choice) {
   clearInterval(timer);
 
@@ -135,16 +134,9 @@ function answer(choice) {
   nextImage();
 }
 
-// ====== PROGRESS ======
 function updateProgress() {
   let percent = (current / images.length) * 100;
   document.getElementById('progress').style.width = percent + "%";
-}
-
-// ====== END ======
-function endTest() {
-  document.getElementById('test').classList.add('hidden');
-  document.getElementById('end').classList.remove('hidden');
 }
 
 function showResults() {
@@ -159,7 +151,6 @@ function showResults() {
   sendData(accuracy, totalTime);
 }
 
-// ====== SEND TO BACKEND ======
 function sendData(accuracy, totalTime) {
   fetch("/submit", {
     method: "POST",
@@ -182,9 +173,15 @@ function setButtonsDisabled(status) {
 }
 
 function endTest() {
-  localStorage.setItem("testCompleted", "true"); 
-  document.getElementById('test').classList.add('hidden');
-  document.getElementById('end').classList.remove('hidden');
+  let totalTime = Math.round((Date.now() - startTime) / 1000);
+  let accuracy = Math.round((score / images.length) * 100);
+
+  localStorage.setItem("score", score);
+  localStorage.setItem("accuracy", accuracy);
+  localStorage.setItem("time", totalTime);
+
+  sendData(accuracy, totalTime);
+  window.location.href = "results.html";
 }
 
 if (localStorage.getItem("testCompleted") === "true") {
@@ -192,4 +189,4 @@ if (localStorage.getItem("testCompleted") === "true") {
     window.location.href = "results.html"; 
 }
 
-nextimage();
+nextImage();
