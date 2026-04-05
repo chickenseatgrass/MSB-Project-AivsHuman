@@ -2,7 +2,53 @@ let data = [
   {src: "images/img1.png", label: "AI"},
   {src: "images/img2.png", label: "AI"},
   {src: "images/img3.png", label: "AI"},
-  // ADD ALL 50
+  {src: "images/img4.png", label: "AI"},
+  {src: "images/img5.png", label: "AI"},
+  {src: "images/img6.png", label: "AI"},
+  {src: "images/img7.png", label: "AI"},
+  {src: "images/img8.png", label: "AI"},
+  {src: "images/img9.png", label: "AI"},
+  {src: "images/img10.png", label: "AI"},
+  {src: "images/img11.png", label: "AI"},
+  {src: "images/img12.png", label: "AI"},
+  {src: "images/img13.png", label: "AI"},
+  {src: "images/img14.png", label: "AI"},
+  {src: "images/img15.png", label: "AI"},
+  {src: "images/img16.png", label: "AI"},
+  {src: "images/img17.png", label: "AI"},
+  {src: "images/img18.png", label: "AI"},
+  {src: "images/img19.png", label: "AI"},
+  {src: "images/img20.png", label: "AI"},
+  {src: "images/img21.png", label: "AI"},
+  {src: "images/img22.png", label: "AI"},
+  {src: "images/img23.png", label: "AI"},
+  {src: "images/img24.png", label: "AI"},
+  {src: "images/img25.png", label: "AI"},
+  {src: "images/img26.png", label: "Human"},
+  {src: "images/img27.png", label: "Human"},
+  {src: "images/img28.png", label: "Human"},
+  {src: "images/img29.png", label: "Human"},
+  {src: "images/img30.png", label: "Human"},
+  {src: "images/img31.png", label: "Human"},
+  {src: "images/img32.png", label: "Human"},
+  {src: "images/img33.png", label: "Human"},
+  {src: "images/img34.png", label: "Human"},
+  {src: "images/img35.png", label: "Human"},
+  {src: "images/img36.png", label: "Human"},
+  {src: "images/img37.png", label: "Human"},
+  {src: "images/img38.png", label: "Human"},
+  {src: "images/img39.png", label: "Human"},
+  {src: "images/img40.png", label: "Human"},
+  {src: "images/img41.png", label: "Human"},
+  {src: "images/img42.png", label: "Human"},
+  {src: "images/img43.png", label: "Human"},
+  {src: "images/img44.png", label: "Human"},
+  {src: "images/img45.png", label: "Human"},
+  {src: "images/img46.png", label: "Human"},
+  {src: "images/img47.png", label: "Human"},
+  {src: "images/img48.png", label: "Human"},
+  {src: "images/img49.png", label: "Human"},
+  {src: "images/img50.png", label: "Human"}
 ];
 
 data.sort(() => Math.random() - 0.5);
@@ -134,3 +180,16 @@ function setButtonsDisabled(status) {
   const buttons = document.querySelectorAll('button');
   buttons.forEach(btn => btn.disabled = status);
 }
+
+function endTest() {
+  localStorage.setItem("testCompleted", "true"); 
+  document.getElementById('test').classList.add('hidden');
+  document.getElementById('end').classList.remove('hidden');
+}
+
+if (localStorage.getItem("testCompleted") === "true") {
+    alert("You have already completed this test.");
+    window.location.href = "results.html"; 
+}
+
+nextimage();

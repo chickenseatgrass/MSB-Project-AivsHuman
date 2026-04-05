@@ -6,17 +6,16 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return open("index.html").read()
+    return open("../index.html").read()
 
 # ADD THIS: This handles the page your button is looking for
 @app.route('/instruct.html')
 def instruct():
-    return open("instruct.html").read()
+    return open("../instruct.html").read()
 
-# OPTIONAL: This handles your CSS and JS files automatically
 @app.route('/<path:path>')
 def static_proxy(path):
-    return send_from_directory('.', path)
+    return send_from_directory('..', path)
 
 @app.route('/submit', methods=['POST'])
 def submit():
