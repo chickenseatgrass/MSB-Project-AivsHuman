@@ -1,16 +1,30 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, send_file
 import csv
 from datetime import datetime
 import os
 
-app = Flask(__name__, static_folder='.', static_url_path='')
+APP_DIR = os.path.dirname(os.path.abspath(__file__))        # Folder containing app.py
+BASE_DIR = os.path.abspath(os.path.join(APP_DIR, '..'))     # Parent folder where HTML/JS/CSS live
 
-DATA_FILE = "data.csv"
+DATA_FILE = os.path.join(BASE_DIR, "data.csv")
+
+app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
 
 if not os.path.exists(DATA_FILE):
     with open(DATA_FILE, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["user_id", "name", "age", "score", "accuracy", "time", "timestamp"])
+        writer.writerow(["user_id", "name", "age", "score", "accuracy", "time", "avg_time", "timestamp"])
+
+def has_taken_test(user_id):
+    if not os.path.exists(DATA_FILE):
+        return False
+    with open(DATA_FILE, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # skip header
+        for row in reader:
+            if row[0] == user_id:
+                return True
+    return False
 
 @app.route('/')
 def home():
@@ -28,14 +42,17 @@ def test():
 def results():
     return app.send_static_file('results.html')
 
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory(BASE_DIR, filename)
+
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.json
-
     user_id = data.get("user_id")
 
     if has_taken_test(user_id):
-        return jsonify({"status": "error", "message": "u cant take the test twice broski"}), 403
+        return jsonify({"status": "error", "message": "You cannot take the test twice"}), 403
 
     with open(DATA_FILE, 'a', newline='') as file:
         writer = csv.writer(file)
@@ -46,31 +63,26 @@ def submit():
             data.get("score"),
             data.get("accuracy"),
             data.get("time"),
-            round(data.get("time") / 50, 2),  # avg time
+            round(data.get("time") / 50, 2),  # avg time per question
             datetime.now()
         ])
 
     return jsonify({"status": "success"})
 
-from flask import send_file
-
 @app.route('/download')
 def download():
     SECRET = "skibidiSSlicers2027bAd_AI_oOOocArs"
-
     key = request.args.get("key")
     if key != SECRET:
-        return "uh u cant be here shh", 403
-
+        return "Access denied", 403
     return send_file(DATA_FILE, as_attachment=True)
 
 @app.route('/admin')
 def admin():
-    SECRET = "skibidiSSlicers2027bAd_AI_oOOocArs" 
-
+    SECRET = "skibidiSSlicers2027bAd_AI_oOOocArs"
     key = request.args.get("key")
     if key != SECRET:
-        return "uh u cant be here shh", 403
+        return "Access denied", 403
 
     rows = []
     with open(DATA_FILE, 'r') as file:
@@ -79,28 +91,10 @@ def admin():
             rows.append(row)
 
     html = "<h1>Data</h1><table border='1'>"
-    
     for row in rows:
-        html += "<tr>"
-        for cell in row:
-            html += f"<td>{cell}</td>"
-        html += "</tr>"
-
+        html += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>"
     html += "</table>"
     return html
 
-def has_taken_test(user_id):
-    if not os.path.exists(DATA_FILE):
-        return False
-
-    with open(DATA_FILE, 'r') as file:
-        reader = csv.reader(file)
-        next(reader) 
-        for row in reader:
-            if row[0] == user_id:
-                return True
-    return False
-
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
