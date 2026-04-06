@@ -2,22 +2,23 @@
 <html>
 <head>
   <title>Test</title>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="container">
+  <div id="progressBar"><div id="progress"></div></div>
 
-<div id="progressBar"><div id="progress"></div></div>
+  <h2 id="countdown"></h2>
+  <img id="image">
 
-<h2 id="countdown"></h2>
-<img id="image">
+  <div>
+    <button onclick="answer('AI')">AI</button>
+    <button onclick="answer('Human')">Human</button>
+  </div>
 
-<div>
-  <button onclick="answer('AI')">AI</button>
-  <button onclick="answer('Human')">Human</button>
+  <p id="timer"></p>
 </div>
-
-<p id="timer"></p>
-
 <script src="script.js"></script>
 </body>
 </html>
