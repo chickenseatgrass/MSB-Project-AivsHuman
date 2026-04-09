@@ -1,11 +1,39 @@
-{% extends "template.html" %}
-{% block content %}
-<div class="container">
-    <h1>homepage</h1>
-    <p>hi!</p>
-    <p>this website is a project made to test different age groups' ability to distinguish between ai-generated and human-made images.</p>
-    <p>the test is meant to be a fun and educational experience!</p>
-    <p>to get started, click the button below or go to the "stuff" page. sorry for the uncreative names lol</p>
-    <button onclick="window.location.href = 'stuff.html'">yay</button>
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="page-wrapper">
+    <nav id="navigation_box">
+      <h1>HIIIII</h1>
+      <div id="right_navigation_box">
+         <div class="dropdown">
+          <button class="dropbtn">menu</button>
+          <div class="dropdown-content">
+            <a href="index.html">home</a>
+            <a href="stuff.html">test</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h1>homepage</h1>
+      <p>hi!</p>
+      <p>this website is a project made to test different age groups' ability to distinguish between ai-generated and human-made images.</p>
+      <p>the test is meant to be a fun and educational experience!</p>
+      <p>to get started, click the button below or go to the "stuff" page.</p>
+      <button onclick="window.location.href = 'stuff.html'">yay</button>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-container"><h2>:)</h2></div>
+    </footer>
+  </div>
+</body>
+</html>

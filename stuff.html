@@ -1,31 +1,50 @@
-{% extends "template.html" %}
-{% block content %}
-<div class="container">
-  <h1>AI vs Human Test</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="page-wrapper">
+    <nav id="navigation_box">
+      <h1>HIIIII</h1>
+      <div id="right_navigation_box">
+         <div class="dropdown">
+          <button class="dropbtn">menu</button>
+          <div class="dropdown-content">
+            <a href="index.html">home</a>
+            <a href="stuff.html">test</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-  <input id="name" placeholder="Enter your name"><br><br>
-  <label for="age">Select your age group:</label>
-  <select id="age">
-    <option value="">- Choose age group -</option>
-    <option value="10-12">10-12</option>
-    <option value="13-15">13-15</option>
-    <option value="16-17">16-17</option>
-    <option value="18-20">18-20</option>
-    <option value="21-30">21-30</option>
-    <option value="31-40">31-40</option>
-    <option value="41-50">41-50</option>
-
-  </select>
-  <br><br>
-
-  <button onclick="goNext()">Start</button>
+    <div class="container">
+      <h1>AI vs Human Test</h1>
+      <input id="name" placeholder="Enter your name"><br><br>
+      <label for="age">Select your age group:</label>
+      <select id="age">
+        <option value="">- Choose age group -</option>
+        <option value="10-12">10-12</option>
+        <option value="13-15">13-15</option>
+        <option value="16-17">16-17</option>
+        <option value="18-20">18-20</option>
+        <option value="21-30">21-30</option>
+      </select>
+      <br><br>
+      <button onclick="goNext()">Start</button>
+    </div>
+  </div>
 
   <script>
-  function goNext() {
-    localStorage.setItem("name", document.getElementById("name").value);
-    localStorage.setItem("age", document.getElementById("age").value);
-    window.location.href = "instruct.html";
-  }
-</script>
-</div>
-{% endblock %}
+    function goNext() {
+      localStorage.setItem("name", document.getElementById("name").value);
+      localStorage.setItem("age", document.getElementById("age").value);
+      window.location.href = "instruct.html";
+    }
+  </script>
+</body>
+</html>

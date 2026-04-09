@@ -1,17 +1,41 @@
-{% extends "template.html" %}
-{% block content %}
-<br></br>
-<h1>instructions</h1>
-<p>you will see 50 images.</p>
-<p>decide if each is ai-generated or human-made.</p>
-<p>you have 20 seconds per image.</p>
-<p>try to be as accurate as possible!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructions</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://googleapis.com" rel="stylesheet">
+</head>
+<body>
+  <div id="page-wrapper">
+    <nav id="navigation_box">
+      <h1 style="color: white; margin: 0;">HIIIII</h1>
+      <div id="right_navigation_box">
+         <div class="dropdown">
+          <button class="dropbtn">menu</button>
+          <div class="dropdown-content">
+            <a href="index.html">home</a>
+            <a href="stuff.html">test</a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-<button onclick="startTest()">Begin</button>
+    <div class="container">
+      <h1>instructions</h1>
+      <p>you will see 50 images.</p>
+      <p>decide if each is ai-generated or human-made.</p>
+      <p>you have 20 seconds per image.</p>
+      <p>try to be as accurate as possible!</p>
+      <button onclick="window.location.href = 'test.html'">begin</button>
+    </div>
 
-<script>
-function startTest() {
-  window.location.href = "test.html";
-}
-</script>
-{% endblock %}
+    <footer class="footer">
+      <div class="footer-container">
+        <h2>:)</h2>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
