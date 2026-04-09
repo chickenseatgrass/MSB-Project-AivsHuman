@@ -136,3 +136,9 @@ h2 {
 .dropdown-content a:hover {
   color: rgb(236, 230, 216);
 }
+
+.image-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 5px;
+}
