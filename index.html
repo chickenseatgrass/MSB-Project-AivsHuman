@@ -1,47 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Home</title>
+  <title>home</title>
   <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 body {
   font-family: "Source Code Pro", monospace;
+  background-color: rgb(236, 230, 216);
 }
 
 button, input, select {
   font-family: "Source Code Pro", monospace;
+  border: solid 2px;
+  box-shadow: 2px 4px 0px;
+  margin: 2px;
+  padding: 6px 8px;
+  background-color: rgb(236, 230, 216);
 }
+
+button:hover {
+  cursor: pointer;
+}
+
 </style>
 <body>
-
-<h1>AI vs Human Test</h1>
-
-<input id="name" placeholder="Enter your name"><br><br>
-<label for="age">Select your age group:</label>
-<select id="age">
-  <option value="">- Choose age group -</option>
-  <option value="10-12">10-12</option>
-  <option value="13-15">13-15</option>
-  <option value="16-17">16-17</option>
-  <option value="18-20">18-20</option>
-  <option value="21-30">21-30</option>
-  <option value="31-40">31-40</option>
-  <option value="41-50">41-50</option>
-
-</select>
-<br><br>
-
-<button onclick="goNext()">Start</button>
-
-<script>
-function goNext() {
-  localStorage.setItem("name", document.getElementById("name").value);
-  localStorage.setItem("age", document.getElementById("age").value);
-  window.location.href = "instruct.html";
-}
-</script>
-
+<div class="container">
+    <h1>homepage</h1>
+    <p>hi!</p>
+    <p>this website is a project made to test different age groups' ability to distinguish between ai-generated and human-made images.</p>
+    <p>the test is meant to be a fun and educational experience!</p>
+    <p>to get started, click the button below or go to the "stuff" page. sorry for the uncreative names lol</p>
+    <button onclick="window.location.href = 'stuff.html'">yay</button>
+</div>
 </body>
 </html>
