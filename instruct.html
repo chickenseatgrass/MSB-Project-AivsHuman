@@ -24,6 +24,64 @@ button, input, select {
 button:hover {
   cursor: pointer;
 }
+
+#page-wrapper {
+    margin: 0;
+}
+
+#navigation_box {
+    background-color: #000000;
+    display: flex;
+    overflow:hidden;
+    justify-content: flex-end;
+    font-family: 'Source Code Pro', monospace;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px;
+    padding-right: 20px;
+}
+
+.dropdown{
+    display:inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0px;
+  background-color: #000000;
+  color: #ffffff;
+  min-width: 160px;
+  box-shadow: 8px 12px 0px #000000;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #ffffff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: rgb(72, 60, 32);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: rgb(236, 230, 216);
+}
+
+.image-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 5px;
+  height: 400px;
+}
 </style>
 <body>
   <div id="page-wrapper">
