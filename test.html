@@ -1,5 +1,31 @@
-{% extends "base.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<style>
+body {
+  font-family: "Source Code Pro", monospace;
+}
+
+button, input, select {
+  font-family: "Source Code Pro", monospace;
+  border: solid 2px;
+  box-shadow: 2px 4px 0px;
+  margin: 5px;
+  padding: 6px 8px;
+  background-color: rgb(236, 230, 216);
+}
+
+button:hover {
+  cursor: pointer;
+}
+</style>
+<body>
 <div class="container">
   <div id="progressBar"><div id="progress"></div></div>
 
@@ -18,4 +44,9 @@
   <p id="timer"></p>
 </div>
 <script src="/js/script.js"></script>
-{% endblock %}
+    <footer class="footer">
+      <div class="footer-container"><h2>:)</h2></div>
+    </footer>
+  </div> 
+</body>
+</html>
