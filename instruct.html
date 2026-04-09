@@ -1,30 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>instructions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<style>
-body {
-  font-family: "Source Code Pro", monospace;
-  background-color: rgb(236, 230, 216);
-}
-
-button, input, select {
-  font-family: "Source Code Pro", monospace;
-  border: solid 2px;
-  box-shadow: 2px 4px 0px;
-  margin: 2px;
-  padding: 6px 8px;
-  background-color: rgb(236, 230, 216);
-}
-
-button:hover {
-  cursor: pointer;
-}
-</style>
-<body>
+{% extends "template.html" %}
+{% block content %}
 <br></br>
 <h1>instructions</h1>
 <p>you will see 50 images.</p>
@@ -39,6 +14,4 @@ function startTest() {
   window.location.href = "test.html";
 }
 </script>
-
-</body>
-</html>
+{% endblock %}
