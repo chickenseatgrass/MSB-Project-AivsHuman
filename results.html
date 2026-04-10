@@ -94,11 +94,12 @@ function showResults() {
   let time = localStorage.getItem("time");
 
   document.getElementById("results").innerText =
-    "Score: " + score +
-    " | Accuracy: " + accuracy + "%" +
-    " | Time: " + time + "s";
+    "score: " + score +
+    " | accuracy: " + accuracy + "%" +
+    " | time: " + time + "s";
+    " | avg time per image: " + (time/50).toFixed(2) + "s";
 }
 </script>
-
+<p>thanks for taking the test! you can exit the page now :p</p>
 </body>
 </html>
