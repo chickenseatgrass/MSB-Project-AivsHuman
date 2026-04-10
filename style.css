@@ -100,7 +100,8 @@ button:hover {
 .dropdown-content {
   display: none;
   position: absolute;
-  right: 0px;
+  left: 0;
+  right: auto;
   background-color: #000000;
   color: #ffffff;
   min-width: 160px;
