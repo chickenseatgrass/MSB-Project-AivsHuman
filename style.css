@@ -135,6 +135,21 @@ button:hover {
   height: 400px;
 }
 
+#image {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    display: block;
+}
+
+#image.loaded {
+    opacity: 1;
+}
+
 #age {
   padding: 6px 8px;
   border: solid 2px;
