@@ -82,7 +82,8 @@ button:hover {
     background-color: #000000;
     display: flex;
     overflow:hidden;
-    justify-content: center;
+    justify-content: absolute;
+    align-items: center;
     font-family: 'Source Code Pro', monospace;
     color: #ffffff;
     font-size: 14px;
