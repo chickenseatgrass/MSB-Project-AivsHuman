@@ -52,7 +52,7 @@ def submit():
     user_id = data.get("user_id")
 
     if has_taken_test(user_id):
-        return jsonify({"status": "error", "message": "You cannot take the test twice"}), 403
+        return jsonify({"status": "error", "message": "you cant take the test twice broski"}), 403
 
     with open(DATA_FILE, 'a', newline='') as file:
         writer = csv.writer(file)

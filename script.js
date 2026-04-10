@@ -1,3 +1,6 @@
+if (!localStorage.getItem("user_id")) {
+  localStorage.setItem("user_id", crypto.randomUUID());
+}
 let data = [
   {src: "images/img1.png", label: "AI"},
   {src: "images/img2.png", label: "AI"},
@@ -63,7 +66,7 @@ let timeLeft = 20;
 let startTime;
 
 // Run the 3-second countdown ONCE when the page loads
-window.onload = function countdown() {
+window.onload = function() {
   let count = 3;
   let countdownEl = document.getElementById('countdown');
   countdownEl.innerText = count;
@@ -121,14 +124,13 @@ function answer(choice) {
 }
 
 function handleTimeout() {
-  // If time runs out, treat as incorrect and force them to move on
   showNextButton();
 }
 
 function loadNext() {
   current++;
   updateProgress();
-  showImage(); // Go straight to the next image (no countdown)
+  showImage();
 }
 
 function updateProgress() {
@@ -142,27 +144,23 @@ function setButtonsDisabled(status) {
 }
 
 function endTest() {
-  // Calculate total time in seconds
   let totalTime = Math.round((Date.now() - startTime) / 1000);
   
-  // Calculate accuracy percentage
   let accuracy = Math.round((score / data.length) * 100);
 
-  // Save results locally for the results page
   localStorage.setItem("score", score);
   localStorage.setItem("accuracy", accuracy);
   localStorage.setItem("time", totalTime);
   localStorage.setItem("testCompleted", "true"); // Prevent re-taking
 
-  // Send data to the server
   sendData(accuracy, totalTime);
 
-  // Go to results page
   window.location.href = "results.html";
 }
 
 function sendData(accuracy, totalTime) {
   const payload = {
+    user_id: localStorage.getItem("user_id"),
     name: localStorage.getItem("name") || "Anonymous",
     age: localStorage.getItem("age") || "Unknown",
     score: score,
