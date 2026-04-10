@@ -55,3 +55,85 @@ h2 {
   letter-spacing: 1px;
   font-size: 24px;
 }
+
+body {
+  font-family: "Source Code Pro", monospace;
+  background: rgb(236, 230, 216);
+}
+
+button, input, select {
+  font-family: "Source Code Pro", monospace;
+  border: solid 2px;
+  box-shadow: 2px 4px 0px;
+  margin: 5px;
+  padding: 6px 8px;
+  background-color: rgb(236, 230, 216);
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#page-wrapper {
+    margin: 0;
+}
+
+#navigation_box {
+    background-color: #000000;
+    display: flex;
+    overflow:hidden;
+    justify-content: flex-end;
+    font-family: 'Source Code Pro', monospace;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px;
+    padding-right: 20px;
+}
+
+.dropdown{
+    display:inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0px;
+  background-color: #000000;
+  color: #ffffff;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: #ffffff;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: rgb(72, 60, 32);
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  color: rgb(236, 230, 216);
+}
+
+.image-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 5px;
+  height: 400px;
+}
+
+#age {
+  padding: 6px 8px;
+  border: solid 2px;
+  box-shadow: 2px 4px 0px;
+  background-color: rgb(236, 230, 216);
+}
