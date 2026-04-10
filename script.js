@@ -1,6 +1,7 @@
 if (!localStorage.getItem("user_id")) {
   localStorage.setItem("user_id", crypto.randomUUID());
 }
+
 let data = [
   {src: "images/img1.png", label: "AI"},
   {src: "images/img2.png", label: "AI"},
@@ -65,8 +66,24 @@ let timer;
 let timeLeft = 20;
 let startTime;
 
-// Run the 3-second countdown ONCE when the page loads
+let preloaded = [];
+
+function preloadImages() {
+  for (let i = 0; i < images.length; i++) {
+    const img = new Image();
+    img.src = images[i];
+    preloaded[i] = img;
+  }
+}
+
+function setButtonsDisabled(status) {
+  const buttons = document.querySelectorAll('#choice-area button');
+  buttons.forEach(btn => btn.disabled = status);
+}
+
 window.onload = function() {
+  preloadImages();
+
   let count = 3;
   let countdownEl = document.getElementById('countdown');
   countdownEl.innerText = count;
@@ -78,8 +95,8 @@ window.onload = function() {
     } else {
       clearInterval(startInterval);
       countdownEl.innerText = "";
-      startTime = Date.now(); // Start the total test timer
-      showImage(); // Load the first image
+      startTime = Date.now();
+      showImage();
     }
   }, 1000);
 };
@@ -92,10 +109,15 @@ function showImage() {
 
   setButtonsDisabled(false);
   document.getElementById('next-btn').classList.add('hidden');
-  document.getElementById('choice-area').classList.remove('hidden'); // Use ID here
+  document.getElementById('choice-area').classList.remove('hidden');
 
   timeLeft = 20;
-  document.getElementById('image').src = images[current];
+  const img = document.getElementById('image');
+
+  img.classList.remove('loaded');
+  img.src = preloaded[current].src;
+  img.onload = () => img.classList.add('loaded');
+
   document.getElementById('timer').innerText = "Time: " + timeLeft;
 
   if (timer) clearInterval(timer);
@@ -112,7 +134,7 @@ function showImage() {
 function showNextButton() {
   setButtonsDisabled(true);
   document.getElementById('next-btn').classList.remove('hidden');
-  document.getElementById('choice-area').classList.add('hidden'); // Use ID here
+  document.getElementById('choice-area').classList.add('hidden');
 }
 
 function answer(choice) {
@@ -120,10 +142,6 @@ function answer(choice) {
   if (choice === answers[current]) {
     score++;
   }
-  showNextButton();
-}
-
-function handleTimeout() {
   showNextButton();
 }
 
@@ -138,20 +156,14 @@ function updateProgress() {
   document.getElementById('progress').style.width = percent + "%";
 }
 
-function setButtonsDisabled(status) {
-  const buttons = document.querySelectorAll('#choice-area button');
-  buttons.forEach(btn => btn.disabled = status);
-}
-
 function endTest() {
   let totalTime = Math.round((Date.now() - startTime) / 1000);
-  
   let accuracy = Math.round((score / data.length) * 100);
 
   localStorage.setItem("score", score);
   localStorage.setItem("accuracy", accuracy);
   localStorage.setItem("time", totalTime);
-  localStorage.setItem("testCompleted", "true"); // Prevent re-taking
+  localStorage.setItem("testCompleted", "true");
 
   sendData(accuracy, totalTime);
 
@@ -174,11 +186,5 @@ function sendData(accuracy, totalTime) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
-  })
-  .then(response => {
-    if (!response.ok) {
-      console.error("Server submission failed:", response.statusText);
-    }
-  })
-  .catch(error => console.error("Error sending data:", error));
+  });
 }

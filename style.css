@@ -64,6 +64,11 @@ button, input, select {
   background-color: rgb(236, 230, 216);
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 button:hover {
   cursor: pointer;
 }
@@ -134,15 +139,8 @@ button:hover {
     max-width: 100%;
     max-height: 400px;
     object-fit: contain;
-
-    opacity: 0.5;
-    transition: opacity 0.3s ease;
-
+    opacity: 1;
     display: block;
-}
-
-#image.loaded {
-    opacity: 1 !important;
 }
 
 #age {
@@ -154,9 +152,10 @@ button:hover {
 
 .footer {
   width: 100%;
+  height: 30px;
   background-color: #000;
   color: #ffffff;
-  padding: 20px 0;
+  padding: 10px 0;
   margin-top: auto;
   text-align: center;
   font-family: "Source Code Pro", monospace;
