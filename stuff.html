@@ -34,7 +34,7 @@
         <option value="21-30">21-30</option>
       </select>
       <br><br>
-      <button onclick="goNext()">Start</button>
+      <button id="start-btn" onclick="goNext()" disabled>start</button>
     </div>
   </div>
 
@@ -42,6 +42,26 @@
     function goNext() {
       localStorage.setItem("name", document.getElementById("name").value);
       localStorage.setItem("age", document.getElementById("age").value);
+      window.location.href = "instruct.html";
+    }
+    const nameInput = document.getElementById("name");
+    const ageInput = document.getElementById("age");
+    const startBtn = document.getElementById("start-btn");
+
+    function checkInputs() {
+      if (nameInput.value.trim() !== "" && ageInput.value !== "") {
+        startBtn.disabled = false;
+      } else {
+        startBtn.disabled = true;
+      }
+    }
+
+    nameInput.addEventListener("input", checkInputs);
+    ageInput.addEventListener("change", checkInputs);
+
+    function goNext() {
+      localStorage.setItem("name", nameInput.value);
+      localStorage.setItem("age", ageInput.value);
       window.location.href = "instruct.html";
     }
   </script>
