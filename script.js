@@ -188,3 +188,10 @@ function sendData(accuracy, totalTime) {
     body: JSON.stringify(payload)
   });
 }
+
+fetch("/count")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("counter").innerText =
+      "People who took this test: " + data.count;
+  });
