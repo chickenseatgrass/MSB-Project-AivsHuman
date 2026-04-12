@@ -193,5 +193,5 @@ fetch("/count")
   .then(res => res.json())
   .then(data => {
     document.getElementById("counter").innerText =
-      "People who took this test: " + data.count;
+      "amt of ppl who took this test: " + data.count;
   });

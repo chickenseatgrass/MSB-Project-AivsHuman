@@ -101,24 +101,5 @@ def count():
     with open("data.csv") as f:
         return {"count": sum(1 for _ in f) - 1}
 
-@app.route("/delete/<user_id>", methods=["GET"])
-def delete(user_id):
-    import csv
-
-    rows = []
-    with open("data.csv", newline="") as f:
-        reader = csv.DictReader(f)
-        fieldnames = reader.fieldnames
-        for row in reader:
-            if row["user_id"] != user_id:
-                rows.append(row)
-
-    with open("data.csv", "w", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(rows)
-
-    return {"status": "deleted", "user_id": user_id}
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
