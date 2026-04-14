@@ -82,17 +82,26 @@ def admin():
         return "Access denied", 403
 
     rows = []
+
     with open(DATA_FILE, 'r') as file:
         reader = csv.reader(file)
-        for row in reader:
-            rows.append(row)
+        headers = next(reader, None)
 
-    html = "<h1>Data</h1><table border='1'>"
+        for row in reader:
+            if row:  # ignore empty rows
+                rows.append(row)
+
+    html = "<h1>Admin Data</h1><table border='1'>"
+
+    # show headers properly
+    if headers:
+        html += "<tr>" + "".join(f"<th>{h}</th>" for h in headers) + "</tr>"
+
     for row in rows:
         html += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>"
+
     html += "</table>"
     return html
-
 @app.route("/count")
 def count():
     with open("data.csv") as f:
