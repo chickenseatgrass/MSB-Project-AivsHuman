@@ -24,14 +24,13 @@
     <div class="container">
       <h1>AI vs Human Test</h1>
       <input id="name" placeholder="Enter your name"><br><br>
-      <label for="age">select your age group:</label>
-      <select id="age">
-        <option value="">- choose age group -</option>
-        <option value="10-12">10-12</option>
-        <option value="13-15">13-15</option>
-        <option value="16-17">16-17</option>
-        <option value="18-20">18-20</option>
-        <option value="21-30">21-30</option>
+      <label for="hours">how many hours on social media do you spend per day?</label>
+      <select id="hours">
+        <option value="">- select -</option>
+        <option value="0-1">0–1 hours/day</option>
+        <option value="1-3">1–3 hours/day</option>
+        <option value="3-5">3–5 hours/day</option>
+        <option value="5+">5+ hours/day</option>
       </select>
       <br><br>
       <button id="start-btn" onclick="goNext()" disabled>start</button>
@@ -41,15 +40,15 @@
   <script>
     function goNext() {
       localStorage.setItem("name", document.getElementById("name").value);
-      localStorage.setItem("age", document.getElementById("age").value);
+      localStorage.setItem("hours", document.getElementById("hours").value);
       window.location.href = "instruct.html";
     }
     const nameInput = document.getElementById("name");
-    const ageInput = document.getElementById("age");
+    const hoursInput = document.getElementById("hours");
     const startBtn = document.getElementById("start-btn");
 
     function checkInputs() {
-      if (nameInput.value.trim() !== "" && ageInput.value !== "") {
+      if (nameInput.value.trim() !== "" && hoursInput.value !== "") {
         startBtn.disabled = false;
       } else {
         startBtn.disabled = true;
@@ -57,11 +56,11 @@
     }
 
     nameInput.addEventListener("input", checkInputs);
-    ageInput.addEventListener("change", checkInputs);
+    hoursInput.addEventListener("change", checkInputs);
 
     function goNext() {
       localStorage.setItem("name", nameInput.value);
-      localStorage.setItem("age", ageInput.value);
+      localStorage.setItem("hours", hoursInput.value);
       window.location.href = "instruct.html";
     }
   </script>
