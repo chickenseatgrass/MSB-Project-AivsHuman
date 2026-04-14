@@ -65,8 +65,8 @@ let score = 0;
 let timer;
 let timeLeft = 20;
 let startTime;
-
 let preloaded = [];
+let submitted = false;
 
 function preloadImages() {
   for (let i = 0; i < images.length; i++) {
@@ -82,6 +82,11 @@ function setButtonsDisabled(status) {
 }
 
 window.onload = function() {
+  if (localStorage.getItem("testCompleted") === "true") {
+    window.location.href = "results.html";
+    return;
+  }
+
   preloadImages();
 
   let count = 3;
@@ -139,9 +144,12 @@ function showNextButton() {
 
 function answer(choice) {
   clearInterval(timer);
+  setButtonsDisabled(true);
+
   if (choice === answers[current]) {
     score++;
   }
+
   showNextButton();
 }
 
@@ -157,6 +165,11 @@ function updateProgress() {
 }
 
 function endTest() {
+  if (submitted) return;
+  submitted = true;
+
+  clearInterval(timer);
+
   let totalTime = Math.round((Date.now() - startTime) / 1000);
   let accuracy = Math.round((score / data.length) * 100);
 
@@ -186,7 +199,7 @@ function sendData(accuracy, totalTime) {
     body: JSON.stringify(payload),
     keepalive: true
   })
-  .then(res => {
+  .then(() => {
     window.location.href = "results.html";
   })
   .catch(() => {
