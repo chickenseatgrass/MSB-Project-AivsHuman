@@ -3,26 +3,28 @@ import csv
 from datetime import datetime
 import os
 
-APP_DIR = os.path.dirname(os.path.abspath(__file__))        # Folder containing app.py
-BASE_DIR = os.path.abspath(os.path.join(APP_DIR, '..'))     # Parent folder where HTML/JS/CSS live
-
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.abspath(os.path.join(APP_DIR, '..'))
 DATA_FILE = os.path.join(BASE_DIR, "data.csv")
 
 app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
 
-if not os.path.exists(DATA_FILE):
-    with open(DATA_FILE, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["user_id", "name", "hours", "score", "accuracy", "time", "avg_time", "timestamp"])
+def init_data_file():
+    if not os.path.exists(DATA_FILE):
+        with open(DATA_FILE, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["user_id", "name", "hours", "score", "accuracy", "time", "avg_time", "timestamp"])
+
+init_data_file()
 
 def has_taken_test(user_id):
     if not os.path.exists(DATA_FILE):
         return False
-    with open(DATA_FILE, 'r') as file:
+    with open(DATA_FILE, 'r', newline='') as file:
         reader = csv.reader(file)
-        next(reader)  # skip header
+        next(reader, None)
         for row in reader:
-            if row[0] == user_id:
+            if row and row[0] == user_id:
                 return True
     return False
 
@@ -60,8 +62,8 @@ def submit():
             data.get("score"),
             data.get("accuracy"),
             data.get("time"),
-            round(data.get("time") / 50, 2),
-            datetime.now()
+            round((data.get("time") or 0) / 50, 2),
+            datetime.now().isoformat()
         ])
 
     return jsonify({"status": "success"})
@@ -82,31 +84,27 @@ def admin():
         return "Access denied", 403
 
     rows = []
-
-    with open(DATA_FILE, 'r') as file:
+    with open(DATA_FILE, 'r', newline='') as file:
         reader = csv.reader(file)
         headers = next(reader, None)
-
         for row in reader:
-            if row:  # ignore empty rows
+            if row:
                 rows.append(row)
 
     html = "<h1>Admin Data</h1><table border='1'>"
-
-    # show headers properly
     if headers:
         html += "<tr>" + "".join(f"<th>{h}</th>" for h in headers) + "</tr>"
-
     for row in rows:
         html += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>"
-
     html += "</table>"
     return html
-    
+
 @app.route("/count")
 def count():
-    with open(DATA_FILE) as f:
-        return {"count": sum(1 for _ in f) - 1}
+    if not os.path.exists(DATA_FILE):
+        return {"count": 0}
+    with open(DATA_FILE, newline='') as f:
+        return {"count": max(0, sum(1 for _ in f) - 1)}
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=False, host='0.0.0.0', port=5000, use_reloader=False)
