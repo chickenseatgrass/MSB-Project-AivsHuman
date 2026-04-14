@@ -52,7 +52,7 @@ def submit():
     user_id = data.get("user_id")
 
     if has_taken_test(user_id):
-        return jsonify({"status": "error", "message": "you cant take the test twice broski"}), 403
+        return jsonify({"status": "error", "message": "already taken"}), 403
 
     with open(DATA_FILE, 'a', newline='') as file:
         writer = csv.writer(file)
@@ -63,7 +63,7 @@ def submit():
             data.get("score"),
             data.get("accuracy"),
             data.get("time"),
-            round(data.get("time") / 50, 2),  # avg time per question
+            round(data.get("time") / 50, 2),
             datetime.now()
         ])
 
