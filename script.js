@@ -195,5 +195,3 @@ fetch("/count")
     document.getElementById("counter").innerText =
       "amt of ppl who took this test: " + data.count;
   });
-
-localStorage.clear();
