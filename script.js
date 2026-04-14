@@ -186,7 +186,10 @@ function sendData(accuracy, totalTime) {
     body: JSON.stringify(payload),
     keepalive: true
   })
-  .finally(() => {
+  .then(res => {
+    window.location.href = "results.html";
+  })
+  .catch(() => {
     window.location.href = "results.html";
   });
 }
