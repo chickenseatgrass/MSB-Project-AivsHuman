@@ -102,9 +102,10 @@ def admin():
 
     html += "</table>"
     return html
+    
 @app.route("/count")
 def count():
-    with open("data.csv") as f:
+    with open(DATA_FILE) as f:
         return {"count": sum(1 for _ in f) - 1}
 
 if __name__ == '__main__':
