@@ -51,9 +51,6 @@ def submit():
     data = request.json
     user_id = data.get("user_id")
 
-    if has_taken_test(user_id):
-        return jsonify({"status": "error", "message": "already taken"}), 403
-
     with open(DATA_FILE, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([
