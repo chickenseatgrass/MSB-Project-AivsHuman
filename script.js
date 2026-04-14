@@ -166,8 +166,6 @@ function endTest() {
   localStorage.setItem("testCompleted", "true");
 
   sendData(accuracy, totalTime);
-
-  window.location.href = "results.html";
 }
 
 function sendData(accuracy, totalTime) {
@@ -185,13 +183,19 @@ function sendData(accuracy, totalTime) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    keepalive: true
+  })
+  .finally(() => {
+    window.location.href = "results.html";
   });
 }
 
 fetch("/count")
   .then(res => res.json())
   .then(data => {
-    document.getElementById("counter").innerText =
-      "amt of ppl who took this test: " + data.count;
+    const el = document.getElementById("counter");
+    if (el) {
+      el.innerText = "amt of ppl who took this test: " + data.count;
+    }
   });
