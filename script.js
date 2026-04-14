@@ -174,7 +174,7 @@ function sendData(accuracy, totalTime) {
   const payload = {
     user_id: localStorage.getItem("user_id"),
     name: localStorage.getItem("name") || "Anonymous",
-    age: localStorage.getItem("hours") || "Unknown",
+    hours: localStorage.getItem("hours") || "Unknown",
     score: score,
     accuracy: accuracy,
     time: totalTime
@@ -195,3 +195,5 @@ fetch("/count")
     document.getElementById("counter").innerText =
       "amt of ppl who took this test: " + data.count;
   });
+
+localStorage.clear();
