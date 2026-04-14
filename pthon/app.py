@@ -13,7 +13,7 @@ app = Flask(__name__, static_folder=BASE_DIR, static_url_path='')
 if not os.path.exists(DATA_FILE):
     with open(DATA_FILE, 'w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["user_id", "name", "age", "score", "accuracy", "time", "avg_time", "timestamp"])
+        writer.writerow(["user_id", "name", "hours", "score", "accuracy", "time", "avg_time", "timestamp"])
 
 def has_taken_test(user_id):
     if not os.path.exists(DATA_FILE):
@@ -59,7 +59,7 @@ def submit():
         writer.writerow([
             user_id,
             data.get("name"),
-            data.get("age"),
+            data.get("hours"),
             data.get("score"),
             data.get("accuracy"),
             data.get("time"),
