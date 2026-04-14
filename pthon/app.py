@@ -119,9 +119,10 @@ def admin():
 
     html = "<h1>Data</h1><table border='1'>"
     if rows:
-        html += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0].keys()) + "</tr>"
+        headers = list(rows[0].keys())
+        html += "<tr>" + "".join(f"<th>{h}</th>" for h in headers) + "</tr>"
         for row in rows:
-            html += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row.values()) + "</tr>"
+            html += "<tr>" + "".join(f"<td>{row[h]}</td>" for h in headers) + "</tr>"
     html += "</table>"
     return html
 
