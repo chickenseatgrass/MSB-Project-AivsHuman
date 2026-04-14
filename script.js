@@ -65,8 +65,8 @@ let score = 0;
 let timer;
 let timeLeft = 20;
 let startTime;
-
 let preloaded = [];
+let submitted = false;
 
 function preloadImages() {
   for (let i = 0; i < images.length; i++) {
@@ -82,6 +82,11 @@ function setButtonsDisabled(status) {
 }
 
 window.onload = function() {
+  if (localStorage.getItem("testCompleted") === "true") {
+    window.location.href = "results.html";
+    return;
+  }
+
   preloadImages();
 
   let count = 3;
@@ -139,9 +144,12 @@ function showNextButton() {
 
 function answer(choice) {
   clearInterval(timer);
+  setButtonsDisabled(true);
+
   if (choice === answers[current]) {
     score++;
   }
+
   showNextButton();
 }
 
@@ -157,6 +165,11 @@ function updateProgress() {
 }
 
 function endTest() {
+  if (submitted) return;
+  submitted = true;
+
+  clearInterval(timer);
+
   let totalTime = Math.round((Date.now() - startTime) / 1000);
   let accuracy = Math.round((score / data.length) * 100);
 
@@ -166,8 +179,6 @@ function endTest() {
   localStorage.setItem("testCompleted", "true");
 
   sendData(accuracy, totalTime);
-
-  window.location.href = "results.html";
 }
 
 function sendData(accuracy, totalTime) {
@@ -185,13 +196,22 @@ function sendData(accuracy, totalTime) {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    keepalive: true
+  })
+  .then(() => {
+    window.location.href = "results.html";
+  })
+  .catch(() => {
+    window.location.href = "results.html";
   });
 }
 
 fetch("/count")
   .then(res => res.json())
   .then(data => {
-    document.getElementById("counter").innerText =
-      "amt of ppl who took this test: " + data.count;
+    const el = document.getElementById("counter");
+    if (el) {
+      el.innerText = "amt of ppl who took this test: " + data.count;
+    }
   });

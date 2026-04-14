@@ -63,6 +63,10 @@
       localStorage.setItem("hours", hoursInput.value);
       window.location.href = "instruct.html";
     }
+    
+    if (localStorage.getItem("testCompleted") === "true") {
+      window.location.href = "results.html";
+    }
   </script>
 </body>
 </html>

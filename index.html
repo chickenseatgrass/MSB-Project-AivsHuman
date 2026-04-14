@@ -26,5 +26,10 @@
     <p>the test is meant to be a fun and educational experience!</p>
     <p>to get started, click the button below or go to the test page in the menu</p>
     <button onclick="window.location.href = 'stuff.html'">click meee</button>
+  <script>
+    if (localStorage.getItem("testCompleted") === "true") {
+      window.location.href = "results.html";
+    }
+  </script>
 </body>
 </html>

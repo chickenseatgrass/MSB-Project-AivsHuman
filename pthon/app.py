@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify, send_from_directory
 import os
 import psycopg2
 from psycopg2.extras import RealDictCursor
+from datetime import datetime
 
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.abspath(os.path.join(APP_DIR, '..'))
@@ -64,19 +65,17 @@ def submit():
     cur = conn.cursor()
 
     cur.execute("SELECT 1 FROM results WHERE user_id = %s", (user_id,))
-    exists = cur.fetchone()
-
-    if exists:
+    if cur.fetchone():
         cur.close()
         conn.close()
-        return jsonify({"status": "already_submitted"})
+        return jsonify({"status": "already_submitted"}), 403
 
     time_val = int(data.get("time") or 0)
     avg_time = round(time_val / 50, 2)
 
     cur.execute("""
-        INSERT INTO results (user_id, name, hours, score, accuracy, time, avg_time)
-        VALUES (%s, %s, %s, %s, %s, %s, %s)
+        INSERT INTO results (user_id, name, hours, score, accuracy, time, avg_time, timestamp)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
     """, (
         user_id,
         data.get("name"),
@@ -84,7 +83,8 @@ def submit():
         int(data.get("score") or 0),
         int(data.get("accuracy") or 0),
         time_val,
-        avg_time
+        avg_time,
+        datetime.now()
     ))
 
     conn.commit()
@@ -117,13 +117,13 @@ def admin():
     cur.close()
     conn.close()
 
-    html = "<h1>Admin Data</h1><table border='1'>"
+    html = "<h1>Data</h1><table border='1'>"
     if rows:
         html += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0].keys()) + "</tr>"
         for row in rows:
-            html += "<tr>" + "".join(f"<td>{row[k]}</td>" for k in row.keys()) + "</tr>"
+            html += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row.values()) + "</tr>"
     html += "</table>"
     return html
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
